@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:animestream/core/app/values.dart';
 import 'package:animestream/core/commons/extractQuality.dart';
+import 'package:animestream/core/network/dash_to_hls.dart';
 import 'package:animestream/ui/models/playerControllers/videoController.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
@@ -42,9 +43,16 @@ class FvpWrapper implements VideoController {
       controllerInitialized = false;
     }
 
+    final httpHeaders = _withUserAgent(headers);
+
+    // mdk cant open DASH, play it through a converted HLS playlist instead
+    if (!offline && DashToHls.isDash(url)) {
+      url = await DashToHls.convert(url, headers: httpHeaders);
+    }
+
     controller = offline
         ? VideoPlayerController.file(File(url))
-        : VideoPlayerController.networkUrl(Uri.parse(url), httpHeaders: _withUserAgent(headers),);
+        : VideoPlayerController.networkUrl(Uri.parse(url), httpHeaders: httpHeaders,);
 
     controllerInitialized = true;
 
