@@ -23,6 +23,7 @@ import 'package:animestream/ui/models/providers/appProvider.dart';
 import 'package:animestream/ui/models/playerControllers/videoController.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 import 'package:animestream/core/commons/platform.dart';
+import 'package:animestream/ui/models/snackBar.dart';
 
 class Watch extends StatefulWidget {
   final VideoController controller;
@@ -107,8 +108,15 @@ class _WatchState extends State<Watch> with WidgetsBindingObserver {
 
       dataProvider.updateCurrentQuality(q);
 
-      await controller.initiateVideo(dataProvider.state.currentStream.url,
-          headers: dataProvider.state.currentStream.customHeaders);
+      try {
+        await controller.initiateVideo(dataProvider.state.currentStream.url,
+            headers: dataProvider.state.currentStream.customHeaders);
+      } catch (err) {
+        Logs.player.log("Couldnt open stream: $err", addToBuffer: true);
+        floatingSnackBar("Couldn't play this server. Try another one!");
+        if (mounted) Navigator.of(context).pop();
+        return;
+      }
 
       controller.setQuality(q);
 

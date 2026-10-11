@@ -34,6 +34,7 @@ import 'package:animestream/ui/theme/themes.dart';
 import 'package:animestream/ui/theme/types.dart';
 import 'package:fvp/fvp.dart' as fvp;
 import 'package:animestream/core/commons/platform.dart';
+import 'package:logging/logging.dart';
 
 class _HttpOverrides extends HttpOverrides {
   @override
@@ -60,6 +61,12 @@ void main(List<String> args) async {
     if (!Platform.isAndroid) {
       fvp.registerWith(options: {
         'fastSeek': true,
+      });
+
+      // fvp/mdk report open & network errors through package:logging, print them so player failures are visible
+      Logger.root.level = Level.INFO;
+      Logger.root.onRecord.listen((rec) {
+        if (rec.loggerName == 'fvp' || rec.loggerName == 'mdk') print("[${rec.loggerName}] ${rec.level.name}: ${rec.message}");
       });
     }
 
