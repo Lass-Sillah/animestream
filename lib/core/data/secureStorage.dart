@@ -2,7 +2,11 @@ import 'package:animestream/core/commons/enums.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 final Map<String, String?> _secureValCache = {};
-final _st = FlutterSecureStorage();
+/// Shared secure storage instance.
+/// macos: use the legacy (file based) keychain, the data protection keychain needs a signed build with keychain-access-groups
+const appSecureStorage = FlutterSecureStorage(mOptions: MacOsOptions(usesDataProtectionKeychain: false));
+
+final _st = appSecureStorage;
 
 Future<String?> getSecureVal(SecureStorageKey key) async {
   final cached = _secureValCache[key.value];

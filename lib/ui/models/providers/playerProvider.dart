@@ -15,6 +15,7 @@ import 'package:animestream/ui/models/playerControllers/videoController.dart';
 import 'package:provider/provider.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:animestream/core/commons/platform.dart';
 
 /// Handle the core player stuff
 class PlayerProvider extends ChangeNotifier {
@@ -134,15 +135,15 @@ class PlayerProvider extends ChangeNotifier {
 
   /// Set pip mode
   Future<void> setPip(bool val) async {
-    if (!Platform.isAndroid && !Platform.isWindows && !Platform.isLinux) {
+    if (!Platform.isAndroid && !AppPlatform.isDesktop) {
       Logs.player.log("PiP not supported on this platform.");
+      return;
     }
-    ;
 
     Logs.player.log("set pip: $val");
     _state = _state.copyWith(pip: val);
 
-    if (Platform.isWindows) {
+    if (AppPlatform.isDesktop) {
       val ? _enablePip() : _disablePip();
     } else {
       await controller.setPip(true); // doesnt really matter for android since disabling is done by the system
@@ -231,7 +232,7 @@ class PlayerProvider extends ChangeNotifier {
     if(_wasMaximized) {
       await windowManager.maximize();
     }
-    Provider.of<AppProvider>(AppWrapper.navKey.currentContext!, listen: false).showTitleBar = false;
+    _setShowTitleBar(false);
   }
 
   void _enablePip() async {
@@ -244,7 +245,13 @@ class PlayerProvider extends ChangeNotifier {
     windowManager.setSize(Size(500, 300));
     windowManager.setResizable(false);
     windowManager.setAlignment(Alignment.bottomRight);
-    Provider.of<AppProvider>(AppWrapper.navKey.currentContext!, listen: false).showTitleBar = true;
+    _setShowTitleBar(true);
+  }
+
+  // AppWrapper (custom title bar) only exists on windows & linux
+  void _setShowTitleBar(bool val) {
+    final ctx = AppWrapper.navKey.currentContext;
+    if (ctx != null) Provider.of<AppProvider>(ctx, listen: false).showTitleBar = val;
   }
 }
 

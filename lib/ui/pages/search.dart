@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:animestream/core/app/runtimeDatas.dart';
 import 'package:animestream/core/data/preferences.dart';
@@ -11,6 +10,7 @@ import 'package:animestream/ui/models/widgets/cards/animeCardExtended.dart';
 import 'package:animestream/ui/models/widgets/header.dart';
 import 'package:animestream/ui/pages/settingPages/common.dart';
 import 'package:flutter/material.dart';
+import 'package:animestream/core/commons/platform.dart';
 
 class Search extends StatefulWidget {
   const Search({super.key});
@@ -176,7 +176,7 @@ class _SearchState extends State<Search> {
                   maxCrossAxisExtent: verticalCards ? 450 : 180,
                   mainAxisExtent: verticalCards
                       ? 150
-                      : Platform.isAndroid
+                      : AppPlatform.isMobile
                           ? 220
                           : 265,
                   crossAxisSpacing: verticalCards ? 10 : 0,
@@ -209,7 +209,7 @@ class _SearchState extends State<Search> {
                   final id = it.id;
                   return Container(
                     child: Cards.animeCard(id, nativeTitle ? it.title['native'] ?? title : title, image,
-                        rating: it.rating, isAnime: true, isMobile: Platform.isAndroid),
+                        rating: it.rating, isAnime: true, isMobile: AppPlatform.isMobile),
                   );
                 }
               },

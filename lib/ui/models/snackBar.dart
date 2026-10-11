@@ -1,11 +1,10 @@
-import "dart:io";
-
 import "package:animestream/main.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
+import 'package:animestream/core/commons/platform.dart';
 
 void floatingSnackBar(String message, {int? duration, bool waitForPreviousToFinish = false}) {
-  final isWindows = Platform.isWindows;
+  final isWindows = AppPlatform.isDesktop;
   if (!waitForPreviousToFinish) AnimeStream.snackbarKey.currentState?.removeCurrentSnackBar();
   AnimeStream.snackbarKey.currentState?.showSnackBar(
       SnackBar(

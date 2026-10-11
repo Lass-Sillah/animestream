@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:animestream/core/app/runtimeDatas.dart';
 import 'package:animestream/core/data/theme.dart';
@@ -6,6 +5,7 @@ import 'package:animestream/ui/theme/themes.dart';
 import 'package:animestream/ui/theme/types.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:animestream/core/commons/platform.dart';
 
 // Handles app wide settings (themes, plugin sources etc..)
 class AppProvider with ChangeNotifier {
@@ -121,7 +121,7 @@ class AppProvider with ChangeNotifier {
 
   /// Set the window mode to fullscreen or windowed
   Future<void> setFullScreen(bool fs) async {
-    if (Platform.isAndroid) return;
+    if (!AppPlatform.isDesktop) return;
     await windowManager.setFullScreen(fs);
     isFullScreen = fs;
   }

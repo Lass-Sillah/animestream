@@ -22,6 +22,7 @@ import 'package:flutter/material.dart';
 import 'package:animestream/ui/models/sources.dart';
 import 'package:provider/provider.dart';
 import 'package:collection/collection.dart';
+import 'package:animestream/core/commons/platform.dart';
 
 class ServerSelectionBottomSheet extends StatefulWidget {
   final InfoProvider provider;
@@ -293,7 +294,7 @@ class ServerSelectionBottomSheetState extends State<ServerSelectionBottomSheet> 
   ListView _list() {
     return widget.type == ServerSheetType.watch
         ? ListView.builder(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: Platform.isAndroid ? 10 : 15),
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: AppPlatform.isMobile ? 10 : 15),
             shrinkWrap: true,
             itemCount: streamSources.length,
             itemBuilder: (context, index) {

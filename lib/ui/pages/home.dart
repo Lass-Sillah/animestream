@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:animestream/core/app/logging.dart';
 import 'package:animestream/ui/models/providers/mainNavProvider.dart';
@@ -16,6 +15,7 @@ import 'package:animestream/ui/pages/lists.dart';
 import 'package:animestream/ui/pages/settingPages/common.dart';
 import 'package:animestream/ui/pages/settingPages/stats.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:animestream/core/commons/platform.dart';
 
 class Home extends StatefulWidget {
   final MainNavProvider mainNavProvider;
@@ -204,8 +204,8 @@ class _HomeState extends State<Home> {
                     child: GridView.builder(
                       padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
                       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: Platform.isAndroid ? 140 : 180,
-                        mainAxisExtent: Platform.isAndroid ? 220 : 265,
+                        maxCrossAxisExtent: AppPlatform.isMobile ? 140 : 180,
+                        mainAxisExtent: AppPlatform.isMobile ? 220 : 265,
                         // crossAxisCount: MediaQuery.of(context).orientation == Orientation.portrait ? 3 : 6,
                         childAspectRatio: 120 / 220,
                         mainAxisSpacing: 10,
@@ -393,8 +393,8 @@ class _HomeState extends State<Home> {
                               child: GridView.builder(
                                 padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
                                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent: Platform.isAndroid ? 140 : 180,
-                                  mainAxisExtent: Platform.isAndroid ? 220 : 260,
+                                  maxCrossAxisExtent: AppPlatform.isMobile ? 140 : 180,
+                                  mainAxisExtent: AppPlatform.isMobile ? 220 : 260,
                                   // crossAxisCount: MediaQuery.of(context).orientation == Orientation.portrait ? 3 : 6,
                                   childAspectRatio: 120 / 220,
                                   mainAxisSpacing: 10,

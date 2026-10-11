@@ -22,6 +22,7 @@ import 'package:animestream/ui/models/providers/playerProvider.dart';
 import 'package:animestream/ui/models/providers/appProvider.dart';
 import 'package:animestream/ui/models/playerControllers/videoController.dart';
 import 'package:screen_brightness/screen_brightness.dart';
+import 'package:animestream/core/commons/platform.dart';
 
 class Watch extends StatefulWidget {
   final VideoController controller;
@@ -254,7 +255,7 @@ class _WatchState extends State<Watch> with WidgetsBindingObserver {
   // Mutex to avoid multiple skips at once
   bool _isSkippingOpOrEd = false;
 
-  bool get isDesktop => Platform.isWindows || Platform.isLinux;
+  bool get isDesktop => AppPlatform.isDesktop;
 
   void hideControlsOnTimeout(PlayerDataProvider dp, PlayerProvider pp, {int timeoutSeconds = 5}) {
     if (_controlsTimer == null && (controller.isPlaying ?? false)) {

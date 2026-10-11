@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:animestream/core/app/runtimeDatas.dart';
 import 'package:animestream/core/data/preferences.dart';
@@ -9,6 +8,7 @@ import 'package:animestream/ui/models/widgets/subtitles/subtitleText.dart';
 import 'package:animestream/ui/models/widgets/toggleItem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:animestream/core/commons/platform.dart';
 
 class SubtitleSettingPage extends StatefulWidget {
   final bool fromWatchPage;
@@ -85,7 +85,7 @@ class _SubtitleSettingPageState extends State<SubtitleSettingPage> {
 
   TextStyle subTextStyle() {
     return TextStyle(
-      fontSize: (Platform.isWindows || Platform.isLinux) ? settings.fontSize * 1.5 : settings.fontSize,
+      fontSize: AppPlatform.isDesktop ? settings.fontSize * 1.5 : settings.fontSize,
       fontFamily: settings.fontFamily ?? "Rubik",
       color: settings.textColor,
       fontWeight: settings.bold ? FontWeight.w700 : FontWeight.w500,

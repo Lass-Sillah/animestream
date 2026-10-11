@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:animestream/core/app/logging.dart';
 import 'package:animestream/core/commons/enums.dart';
@@ -10,6 +9,7 @@ import 'package:animestream/ui/models/widgets/subtitles/subtitleSettings.dart';
 import 'package:animestream/ui/models/widgets/subtitles/subtitleText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:animestream/core/commons/platform.dart';
 
 class SubViewer extends StatefulWidget {
   final VideoController controller;
@@ -146,7 +146,7 @@ class _SubViewerState extends State<SubViewer> {
   //i tried to make it beautiful! okay???
   TextStyle subTextStyle() {
     return TextStyle(
-      fontSize: (Platform.isWindows || Platform.isLinux) ? widget.settings.fontSize * 1.5 : widget.settings.fontSize,
+      fontSize: AppPlatform.isDesktop ? widget.settings.fontSize * 1.5 : widget.settings.fontSize,
       fontFamily: widget.settings.fontFamily ?? "Rubik",
       color: widget.settings.textColor,
       fontWeight: widget.settings.bold ? FontWeight.w700 : FontWeight.w500,

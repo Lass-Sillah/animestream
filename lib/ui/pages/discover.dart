@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:ui';
 
 import 'package:animestream/ui/models/providers/mainNavProvider.dart';
@@ -14,6 +13,7 @@ import 'package:animestream/ui/pages/info.dart';
 import 'package:animestream/ui/pages/news.dart';
 import 'package:animestream/ui/pages/settingPages/common.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:animestream/core/commons/platform.dart';
 
 class Discover extends StatefulWidget {
   final MainNavProvider mainNavProvider;
@@ -95,7 +95,7 @@ class _DiscoverState extends State<Discover> {
                 children: [
                   Container(
                     // margin: EdgeInsets.only(top: 30),
-                    height: (Platform.isWindows || Platform.isLinux) ? 450 : 370,
+                    height: AppPlatform.isDesktop ? 450 : 370,
                     // width: double.infinity,
                     child: widget.mainNavProvider.trendingList.length > 0
                         ? _trendingAnimesPageView()
@@ -372,7 +372,7 @@ class _DiscoverState extends State<Discover> {
             title,
             style: basicTextStyle("Rubik", 20),
           ),
-          if (Platform.isWindows || Platform.isLinux) ScrollingList.scrollButtons(controller) else SizedBox.shrink()
+          if (AppPlatform.isDesktop) ScrollingList.scrollButtons(controller) else SizedBox.shrink()
         ],
       ),
     );

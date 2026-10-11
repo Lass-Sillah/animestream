@@ -19,7 +19,8 @@ class DownloaderHelper {
   // Requests for file permission.
   Future<bool> checkAndRequestPermission() async {
     // We have perm to store anywhere in windows n linux ig (not the root-ish paths ofc)
-    if (Platform.isWindows || Platform.isLinux) return true;
+    // apple platforms write inside the app sandbox / entitled Downloads folder
+    if (!Platform.isAndroid) return true;
 
     Permission fileAccessPermission;
 
@@ -68,7 +69,9 @@ class DownloaderHelper {
         // Default fallback
         defDownloadPath = '${Platform.environment['USERPROFILE']}\\Downloads';
       }
-      return Platform.isWindows ? defDownloadPath : '/storage/emulated/0/Download/animestream';
+      // ios: documents dir is visible in the Files app (UIFileSharingEnabled)
+      if (Platform.isIOS) return '${(await getApplicationDocumentsDirectory()).path}/Downloads';
+      return Platform.isWindows || Platform.isMacOS ? defDownloadPath : '/storage/emulated/0/Download/animestream';
     }
   }
 

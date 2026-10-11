@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:animestream/core/app/logging.dart';
 import 'package:animestream/core/app/runtimeDatas.dart';
@@ -11,6 +10,7 @@ import 'package:animestream/ui/models/widgets/cards/animeCard.dart';
 import 'package:animestream/ui/models/widgets/loader.dart';
 import 'package:animestream/ui/models/widgets/navRail.dart';
 import 'package:flutter/material.dart';
+import 'package:animestream/core/commons/platform.dart';
 
 class AnimeLists extends StatefulWidget {
   const AnimeLists({super.key});
@@ -241,7 +241,7 @@ class _AnimeListsState extends State<AnimeLists> with TickerProviderStateMixin {
                       ),
                     ],
                   ),
-                  if (!Platform.isWindows && !Platform.isLinux)
+                  if (!AppPlatform.isDesktop)
                     Container(
                       margin: EdgeInsets.only(top: 10),
                       child: TabBar(
@@ -296,7 +296,7 @@ class _AnimeListsState extends State<AnimeLists> with TickerProviderStateMixin {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (Platform.isWindows || Platform.isLinux)
+                        if (AppPlatform.isDesktop)
                           AnimeStreamNavRail(
                               shouldExpand: true,
                               destinations: [
@@ -320,7 +320,7 @@ class _AnimeListsState extends State<AnimeLists> with TickerProviderStateMixin {
                                 ),
                               )
                             : Expanded(
-                                child: (Platform.isWindows || Platform.isLinux)
+                                child: AppPlatform.isDesktop
                                     ? Container(
                                         margin: EdgeInsets.all(12),
                                         padding: EdgeInsets.only(bottom: 22, top: 5, right: 10, left: 10),
@@ -382,8 +382,8 @@ class _AnimeListsState extends State<AnimeLists> with TickerProviderStateMixin {
         child: GridView.builder(
           shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: Platform.isAndroid ? 140 : 180,
-              mainAxisExtent: Platform.isAndroid ? 220 : 265,
+              maxCrossAxisExtent: AppPlatform.isMobile ? 140 : 180,
+              mainAxisExtent: AppPlatform.isMobile ? 220 : 265,
               // crossAxisCount: MediaQuery.of(context).orientation == Orientation.portrait ? 3 : 6,
               childAspectRatio: 120 / 220,
               mainAxisSpacing: 10),

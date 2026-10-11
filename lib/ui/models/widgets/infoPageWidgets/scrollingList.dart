@@ -1,8 +1,8 @@
-import 'dart:io';
 
 import 'package:animestream/core/database/types.dart';
 import 'package:animestream/ui/models/widgets/cards.dart';
 import 'package:flutter/material.dart';
+import 'package:animestream/core/commons/platform.dart';
 
 class ScrollingList {
   static SizedBox character(
@@ -76,7 +76,7 @@ class ScrollingList {
               itemBuilder: (context, index) {
                 final it = list[index];
                 return Cards.animeCard(it.id, it.title['english'] ?? it.title['romaji']!, it.cover,
-                    isMobile: !Platform.isWindows, rating: it.rating, subText: it.relationType);
+                    isMobile: !AppPlatform.isDesktop, rating: it.rating, subText: it.relationType);
               },
             ),
           ),

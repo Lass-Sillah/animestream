@@ -1,9 +1,9 @@
-import 'dart:io';
 
 import 'package:animestream/core/app/runtimeDatas.dart';
 import 'package:animestream/ui/models/widgets/cards/animeCardExtended.dart';
 import 'package:animestream/ui/models/widgets/cards/animeCard.dart';
 import 'package:flutter/material.dart';
+import 'package:animestream/core/commons/platform.dart';
 
 class Cards {
   /**Builds a character card (no navigation) */
@@ -163,7 +163,7 @@ class Cards {
       isAnime: isAnime,
       subText: subText,
       rating: rating,
-      isMobile: isMobile ?? Platform.isAndroid,
+      isMobile: isMobile ?? AppPlatform.isMobile,
     );
   }
 

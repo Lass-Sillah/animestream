@@ -8,6 +8,7 @@ import 'package:animestream/ui/models/bottomSheets/updateSheet.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:animestream/core/commons/platform.dart';
 
 class UpdateCheckResult {
   /// The version code of the latest release
@@ -49,6 +50,8 @@ class UpdateCheckResult {
 /// stage can be beta followed by the iterative number (these are rare and arent present most time)
 Future<UpdateCheckResult?> checkForUpdates() async {
   // print(_checkIfTheNewVersionIsActuallyAnUpgrade("1.6.0-beta1", "1.6.0-beta1"));
+  // No installer flow on apple platforms, builds are signed & installed manually
+  if (AppPlatform.isApple) return null;
   try {
     final releasesUrl = 'https://api.github.com/repos/frostnova721/animestream/releases';
     final packageInfo = await PackageInfo.fromPlatform();

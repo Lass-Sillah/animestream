@@ -16,6 +16,7 @@ import 'package:animestream/ui/theme/types.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:animestream/core/commons/platform.dart';
 
 class ThemeSetting extends StatefulWidget {
   const ThemeSetting({super.key});
@@ -201,7 +202,7 @@ class _ThemeSettingState extends State<ThemeSetting> {
                             value: useOldNavbar,
                             mobileOnly: true,
                           ),
-                          if (Platform.isAndroid && useOldNavbar)
+                          if (AppPlatform.isMobile && useOldNavbar)
                             Padding(
                               padding: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
                               child: _sliderItem("Navbar Transparency", navbarTranslucency,
@@ -290,7 +291,7 @@ class _ThemeSettingState extends State<ThemeSetting> {
           isScrollControlledSheet: true,
           showSheetHandle: true,
           builder: (BuildContext context) => Container(
-            width: Platform.isWindows ? MediaQuery.sizeOf(context).width / 3 : null,
+            width: AppPlatform.isDesktop ? MediaQuery.sizeOf(context).width / 3 : null,
             padding: EdgeInsets.only(
               top: 12,
               left: 20,

@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:animestream/core/app/runtimeDatas.dart';
 import 'package:animestream/core/commons/enums.dart';
@@ -8,6 +7,7 @@ import 'package:animestream/ui/models/widgets/ContextMenu.dart';
 import 'package:animestream/ui/pages/info.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:animestream/core/commons/platform.dart';
 
 class AnimeCard extends StatefulWidget {
   final int id;
@@ -41,8 +41,8 @@ class AnimeCard extends StatefulWidget {
 
 class _AnimeCardState extends State<AnimeCard> {
   bool isFocused = false;
-  double width = Platform.isWindows || Platform.isLinux ? 150 : 110;
-  double height = Platform.isWindows || Platform.isLinux ? 200 : 160;
+  double width = AppPlatform.isDesktop ? 150 : 110;
+  double height = AppPlatform.isDesktop ? 200 : 160;
 
   void updateFocus(bool val) {
     return setState(() {
@@ -127,7 +127,7 @@ class _AnimeCardState extends State<AnimeCard> {
                             : width,
                     margin: EdgeInsets.only(bottom: 10, top: widget.isMobile ? 0 : 5),
                     decoration: BoxDecoration(
-                      border: widget.isMobile || Platform.isWindows || Platform.isLinux
+                      border: widget.isMobile || AppPlatform.isDesktop
                           ? null
                           : isFocused
                               ? Border.all(

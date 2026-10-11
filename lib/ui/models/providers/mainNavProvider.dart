@@ -15,9 +15,10 @@ import 'package:animestream/ui/models/widgets/cards.dart';
 import 'package:animestream/ui/models/widgets/cards/animeCard.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:animestream/core/commons/platform.dart';
 
 class MainNavProvider extends ChangeNotifier {
-  bool _isAndroid = Platform.isAndroid;
+  bool _isAndroid = AppPlatform.isMobile; // mobile layout (android/ios)
   bool get isAndroid => _isAndroid;
 
   bool _tv = false;

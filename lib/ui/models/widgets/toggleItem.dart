@@ -1,8 +1,8 @@
-import 'dart:io';
 
 import 'package:animestream/core/app/runtimeDatas.dart';
 import 'package:animestream/ui/pages/settingPages/common.dart';
 import 'package:flutter/material.dart';
+import 'package:animestream/core/commons/platform.dart';
 
 class ToggleItem extends StatelessWidget {
   final VoidCallback onTapFunction;
@@ -22,7 +22,7 @@ class ToggleItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (mobileOnly && !Platform.isAndroid) return SizedBox.shrink();
+    if (mobileOnly && !AppPlatform.isMobile) return SizedBox.shrink();
     return InkWell(
       onTap: onTapFunction,
       child: Container(

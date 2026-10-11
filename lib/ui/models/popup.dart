@@ -1,7 +1,7 @@
-import 'dart:io';
 
 import 'package:animestream/core/app/runtimeDatas.dart';
 import 'package:flutter/material.dart';
+import 'package:animestream/core/commons/platform.dart';
 
 void showPopup({
   required BuildContext context,
@@ -10,7 +10,7 @@ void showPopup({
   Color? backgroundColor,
   bool isScrollControlledSheet = false,
 }) {
-  final isDesktop = Platform.isWindows;
+  final isDesktop = AppPlatform.isDesktop;
 
   if (isDesktop) {
     showDialog(

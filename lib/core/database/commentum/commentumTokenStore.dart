@@ -1,10 +1,10 @@
 import 'package:commentum_client/commentum_client.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:animestream/core/data/secureStorage.dart';
 
 class CommentumTokenStore implements CommentumStorage {
   String _providerKey(CommentumProvider provider) => "commentum_${provider.name}_token";
 
-  final _fss = const FlutterSecureStorage();
+  final _fss = appSecureStorage;
 
   @override
   Future<void> clearAll() async {

@@ -12,7 +12,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:commentum_client/commentum_client.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:animestream/core/data/secureStorage.dart';
 
 class Commentsection extends StatefulWidget {
   final int mediaId;
@@ -337,7 +337,7 @@ class _CommentsectionState extends State<Commentsection> {
                             }
                             await commentum
                                 .login(CommentumProvider.anilist,
-                                    (await FlutterSecureStorage().read(key: SecureStorageKey.anilistToken.value))!)
+                                    (await appSecureStorage.read(key: SecureStorageKey.anilistToken.value))!)
                                 .onError((er, st) {});
 
                             setState(() {

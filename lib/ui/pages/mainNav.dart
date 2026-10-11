@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:animestream/core/app/runtimeDatas.dart';
 import 'package:animestream/core/app/update.dart';
@@ -17,6 +16,7 @@ import 'package:animestream/ui/pages/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:animestream/core/commons/platform.dart';
 
 class MainNavigator extends StatefulWidget {
   const MainNavigator({super.key});
@@ -132,7 +132,7 @@ class MainNavigatorState extends State<MainNavigator> with TickerProviderStateMi
         popTimeoutWindow();
       },
       child: Scaffold(
-        body: MediaQuery.of(context).orientation == Orientation.landscape || Platform.isWindows || Platform.isLinux
+        body: MediaQuery.of(context).orientation == Orientation.landscape || AppPlatform.isDesktop
             ? Row(
                 children: [
                   // AnimeStreamNavRail(

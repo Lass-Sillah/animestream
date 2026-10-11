@@ -33,6 +33,7 @@ import 'package:animestream/ui/theme/lime.dart';
 import 'package:animestream/ui/theme/themes.dart';
 import 'package:animestream/ui/theme/types.dart';
 import 'package:fvp/fvp.dart' as fvp;
+import 'package:animestream/core/commons/platform.dart';
 
 class _HttpOverrides extends HttpOverrides {
   @override
@@ -62,8 +63,10 @@ void main(List<String> args) async {
       });
     }
 
+    if (AppPlatform.isDesktop) await windowManager.ensureInitialized();
+
+    // macos keeps the native title bar
     if (Platform.isWindows || Platform.isLinux) {
-      await windowManager.ensureInitialized();
       await windowManager.setTitleBarStyle(TitleBarStyle.hidden, windowButtonVisibility: false);
 
       // No frameless for now!

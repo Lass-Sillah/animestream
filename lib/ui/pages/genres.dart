@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:animestream/core/app/runtimeDatas.dart';
 import 'package:animestream/core/commons/extensions.dart';
@@ -10,6 +9,7 @@ import 'package:animestream/ui/models/widgets/cards/animeCard.dart';
 import 'package:animestream/ui/pages/settingPages/common.dart';
 import 'package:flutter/material.dart';
 import 'package:animestream/core/commons/genresAndTags.dart';
+import 'package:animestream/core/commons/platform.dart';
 
 class GenresPage extends StatefulWidget {
   const GenresPage({super.key});
@@ -77,7 +77,7 @@ class _GenresPageState extends State<GenresPage> {
             e.cover,
             ongoing: e.status == "RELEASING",
             rating: e.rating,
-            isMobile: Platform.isAndroid,
+            isMobile: AppPlatform.isMobile,
           ),
         );
       });
@@ -220,7 +220,7 @@ class _GenresPageState extends State<GenresPage> {
                                         onPressed: () {
                                           // call twice on windows cus of the screen size :)
                                           getList().then((_) {
-                                            if (Platform.isWindows) getList(lazyLoaded: true);
+                                            if (AppPlatform.isDesktop) getList(lazyLoaded: true);
                                           });
                                           Navigator.of(context).pop();
                                         },
@@ -311,8 +311,8 @@ class _GenresPageState extends State<GenresPage> {
                               GridView.builder(
                                 physics: NeverScrollableScrollPhysics(),
                                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                                    maxCrossAxisExtent: Platform.isAndroid ? 140 : 180,
-                                    mainAxisExtent: Platform.isAndroid ? 220 : 260,
+                                    maxCrossAxisExtent: AppPlatform.isMobile ? 140 : 180,
+                                    mainAxisExtent: AppPlatform.isMobile ? 220 : 260,
                                     // crossAxisCount: MediaQuery.of(context).orientation == Orientation.portrait ? 3 : 6,
                                     // childAspectRatio: 120 / 220,
                                     mainAxisSpacing: 10),

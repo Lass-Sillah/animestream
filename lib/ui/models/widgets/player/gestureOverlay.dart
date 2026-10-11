@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:animestream/core/app/runtimeDatas.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:animestream/core/commons/platform.dart';
 
 class GestureOverlay extends StatefulWidget {
   final Widget child;
@@ -83,7 +83,7 @@ class _GestureOverlayState extends State<GestureOverlay> {
 
   final disableGestures = !(currentUserSettings?.enablePlayerGestures ?? false);
 
-  final isDesktop = Platform.isWindows || Platform.isLinux;
+  final isDesktop = AppPlatform.isDesktop;
 
   void _handleTapDown(TapDownDetails details) {
     _lastTapPosition = details.localPosition;

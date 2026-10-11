@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:animestream/core/app/runtimeDatas.dart';
 import 'package:animestream/ui/models/bottomSheets/customControlsSheet.dart';
 import 'package:animestream/ui/models/providers/playerDataProvider.dart';
@@ -305,7 +307,8 @@ class BottomControls extends StatelessWidget {
                       tooltip: "Audio Tracks",
                       color: Colors.white,
                     ),
-                    IconButton(
+                    // pip only works through better_player (android)
+                    if (Platform.isAndroid) IconButton(
                       onPressed: () async {
                         await playerProvider.setPip(!playerProvider.state.pip);
                       },

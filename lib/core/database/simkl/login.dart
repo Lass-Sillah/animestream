@@ -9,7 +9,6 @@ import 'package:animestream/core/database/database.dart';
 import 'package:animestream/core/database/simkl/mutations.dart';
 import 'package:animestream/core/database/simkl/types.dart';
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 import 'package:animestream/core/network/network.dart';
 
@@ -57,7 +56,7 @@ class SimklLogin extends DatabaseLogin {
 
   @override
   Future<void> removeToken() async {
-    final storage = FlutterSecureStorage();
+    final storage = appSecureStorage;
     storage.delete(key: SecureStorageKey.simklToken.value);
   }
 
