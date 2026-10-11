@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:animestream/core/app/values.dart';
 import 'package:animestream/core/commons/extractQuality.dart';
 import 'package:animestream/ui/models/playerControllers/videoController.dart';
 import 'package:video_player/video_player.dart';
@@ -43,7 +44,7 @@ class FvpWrapper implements VideoController {
 
     controller = offline
         ? VideoPlayerController.file(File(url))
-        : VideoPlayerController.networkUrl(Uri.parse(url), httpHeaders: headers ?? {},);
+        : VideoPlayerController.networkUrl(Uri.parse(url), httpHeaders: _withUserAgent(headers),);
 
     controllerInitialized = true;
 
@@ -54,6 +55,15 @@ class FvpWrapper implements VideoController {
     }
     await controller.setVolume(vol);
     await controller.play();
+  }
+
+  /// ffmpeg (mdk) sends "Lavf/x" as the user agent which some cdns reject (eg: animeonsen), use the app's UA unless the provider set one
+  Map<String, String> _withUserAgent(Map<String, String>? headers) {
+    final merged = {...?headers};
+    if (!merged.keys.any((k) => k.toLowerCase() == 'user-agent')) {
+      merged['User-Agent'] = AppValues.defaultClientUserAgent;
+    }
+    return merged;
   }
 
   @override
